@@ -1,6 +1,8 @@
-# Getting Started with Create React App
+# Github Finder
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+### API Github -> Users
+
+https://api.github.com/users
 
 ## Available Scripts
 
