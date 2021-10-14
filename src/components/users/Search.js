@@ -6,6 +6,12 @@ export class Search extends Component {
        text: '' 
     }
 
+    static propTypes = {
+        searchUsers: PropTypes.func.isRequired,
+        resetUsers: PropTypes.func.isRequired,
+        showReset: PropTypes.bool.isRequired,
+    }
+
     onChange = e => {
         this.setState({ [e.target.name]: e.target.value })
     }
@@ -17,19 +23,33 @@ export class Search extends Component {
     }
 
     render() {
+        const { resetUsers, showReset } = this.props
         return (
             <div>
                 <form onSubmit={this.onSubmit} className="form">
-                    <input type="text" name="text" placeholder="Search users..." value={this.state.text} onChange={this.onChange}/>
-                    <input type="submit" value="Search" className="btn btn-dark btn-block"/>
+                    <input 
+                        type="text" 
+                        name="text" 
+                        placeholder="Search users..." 
+                        value={this.state.text} 
+                        onChange={this.onChange} />
+                    <input 
+                        type="submit" 
+                        value="Search" 
+                        className="btn btn-dark btn-block" />
                 </form>
+                {showReset && 
+                    <button 
+                        className="btn btn-light btn-block"
+                        onClick={resetUsers}>
+                            Reset
+                        </button>
+                }
             </div>
         )
     }
 }
 
-Search.propTypes = {
-    searchUsers : PropTypes.func.isRequired,
-}
+
 
 export default Search

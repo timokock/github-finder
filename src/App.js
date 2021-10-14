@@ -23,18 +23,25 @@ class App extends Component {
     this.setState({ loading: true });
 
     const response = await axios.get(`https://api.github.com/search/users?q=${text}&?client_id=${process.env.REACT_APP_GITHUB_CLIENT_ID}&client_secret=${process.env.REACT_APP_GITHUB_CLIENT_SECRET}`)
-    console.log(response);
-    
+
     this.setState({ users: response.data.items, loading: false })
   }
 
+  resetUsers = () => this.setState({ users: [], loading: false })
+
   render() {
+    const { users, loading } = this.state
     return (
       <div className="App">
         <Navbar />
         <div className="container">
-          <Search searchUsers={this.searchUsers}/>
-          <Users loading={this.state.loading} users={this.state.users} />
+          <Search 
+            searchUsers={this.searchUsers} 
+            resetUsers={this.resetUsers} 
+            showReset={users.length > 0 ? true : false} />
+          <Users 
+            loading={loading} 
+            users={users} />
         </div>
       </div>
     )
