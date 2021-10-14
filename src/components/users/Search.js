@@ -1,60 +1,54 @@
-import React, { Component } from 'react'
+import { useState } from 'react'
 import PropTypes from 'prop-types'
 
-export class Search extends Component {
-    state = {
-       text: '' 
+const Search = ({ searchUsers, resetUsers, showReset, setAlert }) => {
+    const [text, setText] = useState('')
+
+    const onChange = e => {
+        setText(e.target.value)
     }
 
-    static propTypes = {
-        searchUsers: PropTypes.func.isRequired,
-        resetUsers: PropTypes.func.isRequired,
-        showReset: PropTypes.bool.isRequired,
-        setAlert: PropTypes.func.isRequired,
-    }
-
-    onChange = e => {
-        this.setState({ [e.target.name]: e.target.value })
-    }
-
-    onSubmit = e => {
+    const onSubmit = e => {
         e.preventDefault()
-        if(this.state.text === '') {
-            this.props.setAlert('Please enter something!', 'light')
+        if(text === '') {
+            setAlert('Please enter something!', 'light')
         } else {
-            this.props.searchUsers(this.state.text)
-            this.setState({ text: '' })            
+            searchUsers(text)
+            setText('')            
         }
     }
 
-    render() {
-        const { resetUsers, showReset } = this.props
-        return (
-            <div>
-                <form onSubmit={this.onSubmit} className="form">
-                    <input 
-                        type="text" 
-                        name="text" 
-                        placeholder="Search users..." 
-                        value={this.state.text} 
-                        onChange={this.onChange} />
-                    <input 
-                        type="submit" 
-                        value="Search" 
-                        className="btn btn-dark btn-block" />
-                </form>
-                {showReset && 
-                    <button 
-                        className="btn btn-light btn-block"
-                        onClick={resetUsers}>
-                            Reset
-                        </button>
-                }
-            </div>
-        )
-    }
+    return (
+        <div>
+            <form onSubmit={onSubmit} className="form">
+                <input 
+                    type="text" 
+                    name="text" 
+                    placeholder="Search users..." 
+                    value={text} 
+                    onChange={onChange} />
+                <input 
+                    type="submit" 
+                    value="Search" 
+                    className="btn btn-dark btn-block" />
+            </form>
+            {showReset && 
+                <button 
+                    className="btn btn-light btn-block"
+                    onClick={resetUsers}>
+                        Reset
+                    </button>
+            }
+        </div>
+    )
 }
 
+Search.propTypes = {
+    searchUsers: PropTypes.func.isRequired,
+    resetUsers: PropTypes.func.isRequired,
+    showReset: PropTypes.bool.isRequired,
+    setAlert: PropTypes.func.isRequired,
+}
 
 
 export default Search
