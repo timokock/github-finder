@@ -1,6 +1,6 @@
 import { SEARCH_USERS, SET_LOADING, RESET_USERS, GET_USER, GET_REPOS, SET_SEARCH_TEXT } from '../types'
-// eslint-disable-next-line
-export default (state, action) => {
+
+const GithubReducer = (state, action) => {
   switch (action.type) {
     case SET_LOADING:
       return {
@@ -40,3 +40,5 @@ export default (state, action) => {
       return state
   }
 }
+
+export default GithubReducer
